@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var filme_1 = require("./filme");
+var cliente_1 = require("./cliente");
+var locacao_1 = require("./locacao");
+var filme1 = new filme_1.Filme("Filme A", "Ação", 123);
+var filme2 = new filme_1.Filme("Filme B", "Drama", 153);
+var cliente1 = new cliente_1.Cliente("Cliente A", 24);
+var locacao1 = new locacao_1.Locacao(cliente1);
+locacao1.alugarFilme(filme1);
+locacao1.alugarFilme(filme2);
+locacao1.exibirFilmesAlg();

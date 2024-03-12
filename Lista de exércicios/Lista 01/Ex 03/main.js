@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var cliente_1 = require("./cliente");
+var produto_1 = require("./produto");
+var pedido_1 = require("./pedido");
+var prod1 = new produto_1.Produto('Produto A', 2.30);
+var prod2 = new produto_1.Produto('Produto B', 5.60);
+var prod3 = new produto_1.Produto('Produto C', 3.00);
+var prod4 = new produto_1.Produto('Produto D', 2.50);
+var cliente1 = new cliente_1.Cliente('Maria', 'Rua X');
+var pedido1 = new pedido_1.Pedido(cliente1);
+pedido1.addProduto(prod1, 3);
+pedido1.addProduto(prod2, 4);
+pedido1.finalizarPedido();
