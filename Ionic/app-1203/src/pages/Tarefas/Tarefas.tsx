@@ -5,4 +5,4 @@ const Tarefas = () => {
     )
 }
 
-export default Tarefas
+export default Tarefas;
