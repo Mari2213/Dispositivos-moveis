@@ -60,7 +60,7 @@ const Tarefas: React.FC = () => {
             </IonItem>
           ))}
         </IonList>
-        <IonButton expand="block">
+        <IonButton expand="block" onClick={() => addTask()}>
           <IonIcon slot="start" icon={add} />
           Adicionar tarefa
         </IonButton>
