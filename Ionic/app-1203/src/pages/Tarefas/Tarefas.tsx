@@ -3,6 +3,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonInput,
   IonItem,
   IonLabel,
   IonList,
@@ -10,8 +11,8 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { add } from "ionicons/icons";
-import { useState } from "react";
+import { add, checkmark, ellipsisHorizontal } from "ionicons/icons";
+import React, { useState } from "react";
 
 const Tarefas: React.FC = () => {
   const [tasks, setTasks] = useState([
@@ -21,13 +22,22 @@ const Tarefas: React.FC = () => {
     { id: 4, title: "Estudar para prova", completed: false },
   ]);
 
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+
   const addTask = () => {
     const newTask = {
       id: tasks.length + 1,
-      title: "Nova Tarefa",
+      title: newTaskTitle,
       completed: false,
     };
     setTasks([...tasks, newTask]);
+    setNewTaskTitle("");
+  };
+
+  const handlerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTaskTitle) return;
+    addTask();
   };
 
   const toggleTaskCompletion = (id: number) => {
@@ -45,6 +55,20 @@ const Tarefas: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <form onSubmit={handlerSubmit}>
+          <IonItem>
+            <IonInput
+              type="text"
+              placeholder="Nova tarefa"
+              value={newTaskTitle}
+              onIonChange={(e) => setNewTaskTitle(e.detail.value!)}
+            />
+          </IonItem>
+          <IonButton type="submit" expand="block">
+            <IonIcon slot="start" icon={add} />
+            Adicionar tarefa
+          </IonButton>
+        </form>
         <IonList>
           {tasks.map((task) => (
             <IonItem
@@ -55,15 +79,13 @@ const Tarefas: React.FC = () => {
               <IonLabel>{task.title}</IonLabel>
               <IonIcon
                 slot="end"
-                icon={task.completed ? "checkmark" : "ellipsis-hotizontal"}
-              />
+                icon={task.completed ? checkmark : ellipsisHorizontal}
+                role="img"
+                className="ios"
+              ></IonIcon>
             </IonItem>
           ))}
         </IonList>
-        <IonButton expand="block" onClick={() => addTask()}>
-          <IonIcon slot="start" icon={add} />
-          Adicionar tarefa
-        </IonButton>
       </IonContent>
     </IonPage>
   );
