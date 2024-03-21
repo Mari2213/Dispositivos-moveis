@@ -1,11 +1,7 @@
-import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
-import './Home.css';
-import Form1 from "../Form1/Form1";
+import "./Home.css";
 
 const Home: React.FC = () => {
-    return (
-        <><Form1/></>
-    );
+  return <>Page Home</>;
 };
 
 export default Home;

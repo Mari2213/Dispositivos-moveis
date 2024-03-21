@@ -17,13 +17,13 @@ const Form1 = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
     reset,
   } = useForm();
 
   const [formDataArray, setFormDataArray] = React.useState([]);
 
-  const Submit = (data: never): void => {
+  const Submit = (data: never) => {
     setFormDataArray([...formDataArray, data]);
     reset();
     console.log(data);
