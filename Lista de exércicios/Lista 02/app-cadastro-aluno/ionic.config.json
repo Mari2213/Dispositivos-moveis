@@ -1,0 +1,7 @@
+{
+  "name": "app-cadastro-aluno",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
