@@ -17,28 +17,69 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 
-const RegisterStudents = () => {
-  const [aluno, setAluno] = useState({
+type Sex = "masculino" | "feminino";
+type Course = "html" | "css" | "javascript" | "java" | "typescript";
+
+interface AlunoFormData {
+  nome: string;
+  sexo: Sex;
+  telefone: string;
+  matricula: string;
+  bilingue: boolean;
+  cursos: Course[];
+}
+
+const RegisterStudents: React.FC = () => {
+  const [aluno, setAluno] = useState<AlunoFormData>({
     nome: "",
-    sexo: "",
+    sexo: "masculino",
     telefone: "",
     matricula: "",
-    bilingue: false,
+    bilingue: true,
     cursos: [],
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(aluno);
+  //const [showAlert, setshowAlert] = useState(false);
+
+  const resetForm = () => {
     setAluno({
       nome: "",
-      sexo: "",
+      sexo: "masculino",
       telefone: "",
       matricula: "",
       bilingue: false,
       cursos: [],
     });
   };
+
+  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Form", aluno);
+    resetForm();
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLIonInputElement>,
+    key: keyof AlunoFormData,
+  ) => {
+    setAluno({ ...aluno, [key]: e.target.value });
+  };
+
+  const handleCheckboxChange = (course: Course) => {
+    if (aluno.cursos.includes(course)) {
+      setAluno({
+        ...aluno,
+        cursos: aluno.cursos.filter((c) => c !== course),
+      });
+    } else {
+      setAluno({ ...aluno, cursos: [...aluno.cursos, course] });
+    }
+  };
+
+  const handleToggleChange = (e: React.ChangeEvent<HTMLIonToggleElement>) => {
+    setAluno({ ...aluno, bilingue: e.target.checked });
+  };
+
   return (
     <>
       <IonPage>
@@ -49,7 +90,7 @@ const RegisterStudents = () => {
           <IonTitle>Cadasto de Alunos</IonTitle>
         </IonToolbar>
         <IonContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmission} method="post">
             <IonItem>
               <IonInput
                 name="nome"
@@ -57,7 +98,7 @@ const RegisterStudents = () => {
                 label="Nome:"
                 placeholder="Digite seu nome"
                 value={aluno.nome}
-                required
+                onIonChange={(e) => handleInputChange(e, "nome")}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -67,9 +108,10 @@ const RegisterStudents = () => {
                 labelPlacement="fixed"
                 placeholder="Selecione o sexo"
                 value={aluno.sexo}
+                onIonChange={(e) => handleInputChange(e, "sexo")}
               >
                 <IonSelectOption value="Femenino">Femenino</IonSelectOption>
-                <IonSelectOption value="Maculino">Maculino</IonSelectOption>
+                <IonSelectOption value="Masculino">Masculino</IonSelectOption>
               </IonSelect>
             </IonItem>
             <IonItem>
@@ -79,7 +121,7 @@ const RegisterStudents = () => {
                 label="Telefone:"
                 placeholder="Digite o seu telefone"
                 value={aluno.telefone}
-                required
+                onIonChange={(e) => handleInputChange(e, "telefone")}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -89,11 +131,15 @@ const RegisterStudents = () => {
                 label="Matrícula:"
                 placeholder="Digite a sua matrícula"
                 value={aluno.matricula}
-                required
+                onIonChange={(e) => handleInputChange(e, "matricula")}
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonToggle name="bilingue" checked={aluno.bilingue}>
+              <IonToggle
+                name="bilingue"
+                checked={aluno.bilingue}
+                onIonChange={() => handleToggleChange}
+              >
                 Aluno Bilingue?
               </IonToggle>
             </IonItem>
@@ -105,40 +151,40 @@ const RegisterStudents = () => {
                 <IonCheckbox
                   justify="start"
                   alignment="center"
-                  name="HTML"
-                  value={aluno.cursos}
+                  checked={aluno.cursos.includes("html")}
+                  onIonChange={() => handleCheckboxChange("html")}
                 >
                   HTML
                 </IonCheckbox>
                 <IonCheckbox
                   justify="start"
                   alignment="center"
-                  name="CSS"
-                  value={aluno.cursos}
+                  checked={aluno.cursos.includes("css")}
+                  onIonChange={() => handleCheckboxChange("css")}
                 >
                   CSS
                 </IonCheckbox>
                 <IonCheckbox
                   justify="start"
                   alignment="center"
-                  name="JavaScript"
-                  value={aluno.cursos}
+                  checked={aluno.cursos.includes("javascript")}
+                  onIonChange={() => handleCheckboxChange("javascript")}
                 >
                   JavaScript
                 </IonCheckbox>
                 <IonCheckbox
                   justify="start"
                   alignment="center"
-                  name="Java"
-                  value={aluno.cursos}
+                  checked={aluno.cursos.includes("java")}
+                  onIonChange={() => handleCheckboxChange("java")}
                 >
                   Java
                 </IonCheckbox>
                 <IonCheckbox
                   justify="start"
                   alignment="center"
-                  name="TypeScript"
-                  value={aluno.cursos}
+                  checked={aluno.cursos.includes("typescript")}
+                  onIonChange={() => handleCheckboxChange("typescript")}
                 >
                   TypeScript
                 </IonCheckbox>
