@@ -1,4 +1,5 @@
 import {
+  InputChangeEventDetail,
   IonBackButton,
   IonButton,
   IonButtons,
@@ -17,52 +18,54 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 
-type Sex = "masculino" | "feminino";
+type Sex = "masculino" | "feminino" | "";
 type Course = "html" | "css" | "javascript" | "java" | "typescript";
+type Bilingue = boolean | any;
 
 interface AlunoFormData {
   nome: string;
   sexo: Sex;
   telefone: string;
   matricula: string;
-  bilingue: boolean;
+  bilingue: Bilingue;
   cursos: Course[];
 }
 
 const RegisterStudents: React.FC = () => {
   const [aluno, setAluno] = useState<AlunoFormData>({
     nome: "",
-    sexo: "masculino",
+    sexo: "",
     telefone: "",
     matricula: "",
-    bilingue: true,
+    bilingue: "",
     cursos: [],
   });
 
-  //const [showAlert, setshowAlert] = useState(false);
-
-  const resetForm = () => {
+  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Form", aluno);
     setAluno({
       nome: "",
-      sexo: "masculino",
+      sexo: "",
       telefone: "",
       matricula: "",
       bilingue: false,
       cursos: [],
     });
-  };
-
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form", aluno);
-    resetForm();
+    //resetForm();
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLIonInputElement>,
+    e: React.InputHTMLAttributes<InputChangeEventDetail>,
     key: keyof AlunoFormData,
   ) => {
-    setAluno({ ...aluno, [key]: e.target.value });
+    // @ts-ignore
+    const { value } = e.target;
+    const updateAluno: AlunoFormData = {
+      ...aluno,
+      [key]: value,
+    };
+    setAluno(updateAluno);
   };
 
   const handleCheckboxChange = (course: Course) => {
@@ -99,6 +102,7 @@ const RegisterStudents: React.FC = () => {
                 placeholder="Digite seu nome"
                 value={aluno.nome}
                 onIonChange={(e) => handleInputChange(e, "nome")}
+                required={true}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -110,8 +114,8 @@ const RegisterStudents: React.FC = () => {
                 value={aluno.sexo}
                 onIonChange={(e) => handleInputChange(e, "sexo")}
               >
-                <IonSelectOption value="Femenino">Femenino</IonSelectOption>
-                <IonSelectOption value="Masculino">Masculino</IonSelectOption>
+                <IonSelectOption value="femenino">Femenino</IonSelectOption>
+                <IonSelectOption value="masculino">Masculino</IonSelectOption>
               </IonSelect>
             </IonItem>
             <IonItem>
@@ -122,6 +126,7 @@ const RegisterStudents: React.FC = () => {
                 placeholder="Digite o seu telefone"
                 value={aluno.telefone}
                 onIonChange={(e) => handleInputChange(e, "telefone")}
+                required={true}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -132,6 +137,7 @@ const RegisterStudents: React.FC = () => {
                 placeholder="Digite a sua matrícula"
                 value={aluno.matricula}
                 onIonChange={(e) => handleInputChange(e, "matricula")}
+                required={true}
               ></IonInput>
             </IonItem>
             <IonItem>
