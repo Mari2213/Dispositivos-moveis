@@ -10,7 +10,8 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState("");
@@ -51,10 +52,16 @@ const Login: React.FC = () => {
           type="submit"
           shape="round"
           expand="full"
+          color="success"
+          className="ion-margin-top"
           onClick={loginUser}
         >
           Entrar
         </IonButton>
+
+        <p>
+          Não tem conta? <Link to="/register">Registre-se</Link>
+        </p>
       </IonContent>
     </IonPage>
   );
