@@ -45,6 +45,7 @@ const RegisterStudents: React.FC = () => {
     e.preventDefault();
     console.log("Form", aluno);
     setAluno({
+      ...aluno,
       nome: "",
       sexo: "",
       telefone: "",
