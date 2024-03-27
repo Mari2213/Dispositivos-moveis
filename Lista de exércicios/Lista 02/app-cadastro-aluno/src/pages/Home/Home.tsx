@@ -12,6 +12,7 @@ import "./Home.css";
 import { Link, Redirect, Route } from "react-router-dom";
 import RegisterStudents from "../RegisterStudents/RegisterStudents";
 import { IonReactRouter } from "@ionic/react-router";
+import ListStudents from "../ListStudents/ListStudents";
 
 setupIonicReact();
 const Home = () => {
@@ -27,14 +28,26 @@ const Home = () => {
             </IonHeader>
             <IonContent fullscreen className="ion-text-center ion-padding-top">
               <Link to="/cadastro-alunos">
-                <IonButton>Cadastro de Alunos</IonButton>
+                <IonButton shape="round" expand="full">
+                  Cadastro de Alunos
+                </IonButton>
               </Link>
+              <IonContent>
+                <Link to="/listar-alunos">
+                  <IonButton shape="round" expand="full">
+                    Listar dados
+                  </IonButton>
+                </Link>
+              </IonContent>
             </IonContent>
           </IonPage>
 
           {/*Rotas*/}
           <Route exact path="/cadastro-alunos">
             <RegisterStudents />
+          </Route>
+          <Route exact path="/listar-alunos">
+            <ListStudents />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />

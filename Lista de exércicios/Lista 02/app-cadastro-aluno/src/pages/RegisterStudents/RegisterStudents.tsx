@@ -37,7 +37,7 @@ const RegisterStudents: React.FC = () => {
     sexo: "",
     telefone: "",
     matricula: "",
-    bilingue: "",
+    bilingue: false,
     cursos: [],
   });
 
