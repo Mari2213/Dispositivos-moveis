@@ -25,9 +25,10 @@ const Form1 = () => {
 
   const Submit = (data: never) => {
     setFormDataArray([...formDataArray, data]);
-    reset();
     console.log(data);
+    reset();
   };
+
   return (
     <IonPage>
       <IonHeader translucent={true}>
