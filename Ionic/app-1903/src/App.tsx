@@ -23,20 +23,22 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import Form2 from "./pages/Form2/Form2";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/form1">
-          <Form1 />
-        </Route>
-      </IonRouterOutlet>
+      <Route exact path="/home">
+        <Home />
+      </Route>
+      <Route exact path="/form1">
+        <Form1 />
+      </Route>
+      <Route exact path="/form2">
+        <Form2 />
+      </Route>
     </IonReactRouter>
   </IonApp>
 );
