@@ -25,7 +25,7 @@ const Register: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="#"></IonBackButton>
+            <IonBackButton defaultHref="/home"></IonBackButton>
           </IonButtons>
           <IonTitle>Page Register</IonTitle>
         </IonToolbar>
@@ -56,6 +56,7 @@ const Register: React.FC = () => {
           ></IonInput>
         </IonItem>
         <IonButton
+          className="ion-margin-top"
           type="submit"
           shape="round"
           expand="full"

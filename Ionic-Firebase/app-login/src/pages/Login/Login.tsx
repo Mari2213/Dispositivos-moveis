@@ -12,14 +12,21 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { loginUser } from "../../firebase";
+import { toast } from "../../toast";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginUser = () => {
-    console.log(userName, password);
-  };
+  async function login() {
+    const res = await loginUser(userName, password);
+    if (!res) {
+      toast("Error logging with your credent", 2000);
+    } else {
+      toast("You have logged in!", 2000);
+    }
+  }
 
   return (
     <IonPage>
@@ -54,14 +61,15 @@ const Login: React.FC = () => {
           expand="full"
           color="success"
           className="ion-margin-top"
-          onClick={loginUser}
+          onClick={login}
         >
           Entrar
         </IonButton>
-
-        <p>
-          Não tem conta? <Link to="/register">Registre-se</Link>
-        </p>
+        <div className="ion-margin-start">
+          <p>
+            Não tem conta? <Link to="/register">Registre-se</Link>
+          </p>
+        </div>
       </IonContent>
     </IonPage>
   );
