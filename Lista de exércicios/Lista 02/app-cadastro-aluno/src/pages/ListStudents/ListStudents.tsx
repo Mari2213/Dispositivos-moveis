@@ -6,7 +6,6 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonContent,
-  IonHeader,
   IonItem,
   IonLabel,
   IonPage,
@@ -14,8 +13,10 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
+import { useStudentsContext } from "../../service/StudentContext";
 
 const ListStudents: React.FC = () => {
+  const { students } = useStudentsContext();
   return (
     <>
       <IonPage>
@@ -26,28 +27,38 @@ const ListStudents: React.FC = () => {
           <IonTitle>Listar dados do Alunos</IonTitle>
         </IonToolbar>
         <IonContent>
-          <IonCard color="light">
-            <IonCardHeader>
-              <IonCardTitle>Nome do usuario</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              <IonItem>
-                <IonLabel>Sexo</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Matrícula</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Telefone</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Bilíngue</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Cursos</IonLabel>
-              </IonItem>
-            </IonCardContent>
-          </IonCard>
+          {students.map((student) => (
+            <IonCard color="light" key={student.matricula}>
+              <IonCardHeader>
+                <IonCardTitle>{student.nome}</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <IonItem>
+                  <IonLabel>{student.sexo}</IonLabel>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>{student.matricula}</IonLabel>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>{student.telefone}</IonLabel>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>{student.bilingue ? "Sim" : "Não"}</IonLabel>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Cursos</IonLabel>
+                  <IonLabel>
+                    {student.cursos.map((course, index) => (
+                      <span key={index}>
+                        {course}
+                        {index !== student.cursos.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </IonLabel>
+                </IonItem>
+              </IonCardContent>
+            </IonCard>
+          ))}
         </IonContent>
       </IonPage>
     </>
