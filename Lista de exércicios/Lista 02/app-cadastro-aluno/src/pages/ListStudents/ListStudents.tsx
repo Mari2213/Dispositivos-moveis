@@ -50,7 +50,7 @@ const ListStudents: React.FC = () => {
                   </IonLabel>
                 </IonItem>
                 <IonItem>
-                  <IonLabel>Cursos</IonLabel>
+                  <IonLabel>Cursos:</IonLabel>
                   <IonLabel>{student.cursos.join(", ")}</IonLabel>
                 </IonItem>
               </IonCardContent>

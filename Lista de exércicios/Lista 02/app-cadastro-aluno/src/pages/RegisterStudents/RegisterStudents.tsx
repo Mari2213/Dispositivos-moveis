@@ -16,7 +16,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useState } from "react";
-import { AlunoFormData } from "../../types";
+import { AlunoFormData } from "../../models/types";
 import { StudentService } from "../../service/StudentService";
 
 const studentService = new StudentService();
