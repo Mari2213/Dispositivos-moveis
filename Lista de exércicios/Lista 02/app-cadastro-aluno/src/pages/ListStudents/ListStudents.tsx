@@ -13,10 +13,12 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
-import { useStudentsContext } from "../../service/StudentContext";
+import { StudentService } from "../../service/StudentService";
 
+const studentService = new StudentService();
 const ListStudents: React.FC = () => {
-  const { students } = useStudentsContext();
+  const students = studentService.getStudents();
+
   return (
     <>
       <IonPage>
@@ -27,34 +29,29 @@ const ListStudents: React.FC = () => {
           <IonTitle>Listar dados do Alunos</IonTitle>
         </IonToolbar>
         <IonContent>
-          {students.map((student) => (
-            <IonCard color="light" key={student.matricula}>
+          {students.map((student, index) => (
+            <IonCard color="light" key={index}>
               <IonCardHeader>
                 <IonCardTitle>{student.nome}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
                 <IonItem>
-                  <IonLabel>{student.sexo}</IonLabel>
+                  <IonLabel>Sexo: {student.sexo}</IonLabel>
                 </IonItem>
                 <IonItem>
-                  <IonLabel>{student.matricula}</IonLabel>
+                  <IonLabel>Telefone: {student.telefone}</IonLabel>
                 </IonItem>
                 <IonItem>
-                  <IonLabel>{student.telefone}</IonLabel>
+                  <IonLabel>Matricula: {student.matricula}</IonLabel>
                 </IonItem>
                 <IonItem>
-                  <IonLabel>{student.bilingue ? "Sim" : "Não"}</IonLabel>
+                  <IonLabel>
+                    Bilingue: {student.bilingue ? "Sim" : "Não"}
+                  </IonLabel>
                 </IonItem>
                 <IonItem>
                   <IonLabel>Cursos</IonLabel>
-                  <IonLabel>
-                    {student.cursos.map((course, index) => (
-                      <span key={index}>
-                        {course}
-                        {index !== student.cursos.length - 1 && ", "}
-                      </span>
-                    ))}
-                  </IonLabel>
+                  <IonLabel>{student.cursos.join(", ")}</IonLabel>
                 </IonItem>
               </IonCardContent>
             </IonCard>

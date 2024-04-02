@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home/Home";
@@ -22,6 +22,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import RegisterStudents from "./pages/RegisterStudents/RegisterStudents";
+import ListStudents from "./pages/ListStudents/ListStudents";
 
 setupIonicReact();
 
@@ -29,12 +30,18 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
+        <Route exact={true} path="/home" component={Home}></Route>
+        <Route exact={true} path="/" component={Home}></Route>
+        <Route
+          exact={true}
+          path="/cadastrar-alunos"
+          component={RegisterStudents}
+        ></Route>
+        <Route
+          exact={true}
+          path="/listar-dados"
+          component={ListStudents}
+        ></Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
