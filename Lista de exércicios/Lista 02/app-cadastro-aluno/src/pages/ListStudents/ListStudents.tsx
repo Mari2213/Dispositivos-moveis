@@ -6,12 +6,14 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonContent,
+  IonIcon,
   IonItem,
   IonLabel,
   IonPage,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import "./style.css";
 import React from "react";
 import { StudentService } from "../../service/StudentService";
 
@@ -30,11 +32,14 @@ const ListStudents: React.FC = () => {
         </IonToolbar>
         <IonContent>
           {students.map((student, index) => (
-            <IonCard color="light" key={index}>
+            <IonCard color="primary" key={index}>
               <IonCardHeader>
-                <IonCardTitle>{student.nome}</IonCardTitle>
+                <IonCardTitle className="font-title">
+                  {student.nome}
+                </IonCardTitle>
               </IonCardHeader>
-              <IonCardContent>
+              {/*
+              <IonCardContent className="font-card-content">
                 <IonItem>
                   <IonLabel>Sexo: {student.sexo}</IonLabel>
                 </IonItem>
@@ -54,6 +59,7 @@ const ListStudents: React.FC = () => {
                   <IonLabel>{student.cursos.join(", ")}</IonLabel>
                 </IonItem>
               </IonCardContent>
+              */}
             </IonCard>
           ))}
         </IonContent>
