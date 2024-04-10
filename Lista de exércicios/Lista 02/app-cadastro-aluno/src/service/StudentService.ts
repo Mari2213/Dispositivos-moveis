@@ -9,6 +9,16 @@ export class StudentService {
     console.log("Add", this.students);
   }
 
+  public updateStudent(index: number, updateStudent: AlunoFormData): void {
+    this.students[index] = updateStudent;
+    this.saveStudents();
+  }
+
+  public deleteStudent(index: number): void {
+    this.students.splice(index, 1);
+    this.saveStudents();
+  }
+
   public getStudents(): AlunoFormData[] {
     this.loadStudents();
     return this.students;

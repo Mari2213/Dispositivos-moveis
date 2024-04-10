@@ -15,13 +15,13 @@ import {
   IonToggle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useState } from "react";
 import { AlunoFormData } from "../../models/types";
+import { useState } from "react";
 import { StudentService } from "../../service/StudentService";
 
 const studentService = new StudentService();
 
-const RegisterStudents: React.FC = () => {
+const Teste: React.FC = () => {
   const [aluno, setAluno] = useState<AlunoFormData>({
     nome: "",
     sexo: "",
@@ -31,24 +31,16 @@ const RegisterStudents: React.FC = () => {
     cursos: [],
   });
 
-  const resertForm = () => {
-    setAluno({
-      nome: "",
-      sexo: "",
-      telefone: "",
-      matricula: "",
-      bilingue: false,
-      cursos: [],
-    });
+  const submitForm = (event: React.FormEvent) => {
+    event.preventDefault();
+    studentService.addStudent(aluno);
   };
 
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (event.currentTarget.checkValidity()) {
-      studentService.addStudent(aluno);
-      resertForm();
+  const handleInputChange = (name: string, value: any) => {
+    if (name === "cursos") {
+      setAluno({ ...aluno, cursos: value });
     } else {
-      console.log("Form inválido!!!");
+      setAluno({ ...aluno, [name]: value });
     }
   };
 
@@ -69,11 +61,9 @@ const RegisterStudents: React.FC = () => {
                 type="text"
                 label="Nome:"
                 placeholder="Digite seu nome"
-                value={aluno.nome}
                 required={true}
-                onIonChange={(e) =>
-                  setAluno({ ...aluno, nome: e.detail.value! })
-                }
+                value={aluno.nome}
+                onIonChange={(e) => handleInputChange("nome", e.detail.value)}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -84,9 +74,7 @@ const RegisterStudents: React.FC = () => {
                 placeholder="Selecione o sexo"
                 aria-required={true}
                 value={aluno.sexo}
-                onIonChange={(e) =>
-                  setAluno({ ...aluno, sexo: e.detail.value! })
-                }
+                onIonChange={(e) => handleInputChange("sexo", e.detail.value)}
               >
                 <IonSelectOption value="femenino">Femenino</IonSelectOption>
                 <IonSelectOption value="masculino">Masculino</IonSelectOption>
@@ -95,13 +83,13 @@ const RegisterStudents: React.FC = () => {
             <IonItem>
               <IonInput
                 name="telefone"
-                type="tel"
+                type="text"
                 label="Telefone:"
                 placeholder="Digite o seu telefone"
-                value={aluno.telefone}
                 required={true}
+                value={aluno.telefone}
                 onIonChange={(e) =>
-                  setAluno({ ...aluno, telefone: e.detail.value! })
+                  handleInputChange("telefone", e.detail.value)
                 }
               ></IonInput>
             </IonItem>
@@ -111,10 +99,10 @@ const RegisterStudents: React.FC = () => {
                 type="text"
                 label="Matrícula:"
                 placeholder="Digite a sua matrícula"
-                value={aluno.matricula}
                 required={true}
+                value={aluno.matricula}
                 onIonChange={(e) =>
-                  setAluno({ ...aluno, matricula: e.detail.value! })
+                  handleInputChange("matricula", e.detail.value)
                 }
               ></IonInput>
             </IonItem>
@@ -123,7 +111,7 @@ const RegisterStudents: React.FC = () => {
                 name="bilingue"
                 checked={aluno.bilingue}
                 onIonChange={(e) =>
-                  setAluno({ ...aluno, bilingue: e.detail.checked })
+                  handleInputChange("bilingue", e.detail.checked)
                 }
               >
                 Aluno Bilingue?
@@ -135,81 +123,75 @@ const RegisterStudents: React.FC = () => {
             <IonItem>
               <IonList>
                 <IonCheckbox
-                  name="HTML"
-                  justify="start"
-                  alignment="center"
-                  value={aluno.cursos}
+                  name="html"
+                  value={aluno.cursos.includes("html")}
                   onIonChange={(e) =>
-                    setAluno({
-                      ...aluno,
-                      cursos: e.detail.checked
+                    handleInputChange(
+                      "cursos",
+                      e.detail.checked
                         ? [...aluno.cursos, "html"]
-                        : aluno.cursos.filter((c) => c !== "html"),
-                    })
+                        : aluno.cursos.filter((curso) => curso !== "html"),
+                    )
                   }
                 >
                   HTML
                 </IonCheckbox>
                 <IonCheckbox
-                  name="CSS"
-                  justify="start"
-                  alignment="center"
+                  name="css"
                   value={aluno.cursos.includes("css")}
                   onIonChange={(e) =>
-                    setAluno({
-                      ...aluno,
-                      cursos: e.detail.checked
+                    handleInputChange(
+                      "cursos",
+                      e.detail.checked
                         ? [...aluno.cursos, "css"]
-                        : aluno.cursos.filter((c) => c !== "css"),
-                    })
+                        : aluno.cursos.filter((curso) => curso !== "css"),
+                    )
                   }
                 >
                   CSS
                 </IonCheckbox>
                 <IonCheckbox
-                  name="JavaScript"
-                  justify="start"
-                  alignment="center"
+                  name="javascript"
                   value={aluno.cursos.includes("javascript")}
                   onIonChange={(e) =>
-                    setAluno({
-                      ...aluno,
-                      cursos: e.detail.checked
+                    handleInputChange(
+                      "cursos",
+                      e.detail.checked
                         ? [...aluno.cursos, "javascript"]
-                        : aluno.cursos.filter((c) => c !== "javascript"),
-                    })
+                        : aluno.cursos.filter(
+                            (curso) => curso !== "javascript",
+                          ),
+                    )
                   }
                 >
                   JavaScript
                 </IonCheckbox>
                 <IonCheckbox
-                  name="Java"
-                  justify="start"
-                  alignment="center"
+                  name="java"
                   value={aluno.cursos.includes("java")}
                   onIonChange={(e) =>
-                    setAluno({
-                      ...aluno,
-                      cursos: e.detail.checked
+                    handleInputChange(
+                      "cursos",
+                      e.detail.checked
                         ? [...aluno.cursos, "java"]
-                        : aluno.cursos.filter((c) => c !== "java"),
-                    })
+                        : aluno.cursos.filter((curso) => curso !== "java"),
+                    )
                   }
                 >
                   Java
                 </IonCheckbox>
                 <IonCheckbox
-                  name="TypeScript"
-                  justify="start"
-                  alignment="center"
+                  name="typescript"
                   value={aluno.cursos.includes("typescript")}
                   onIonChange={(e) =>
-                    setAluno({
-                      ...aluno,
-                      cursos: e.detail.checked
+                    handleInputChange(
+                      "cursos",
+                      e.detail.checked
                         ? [...aluno.cursos, "typescript"]
-                        : aluno.cursos.filter((c) => c !== "typescript"),
-                    })
+                        : aluno.cursos.filter(
+                            (curso) => curso !== "typescript",
+                          ),
+                    )
                   }
                 >
                   TypeScript
@@ -232,4 +214,4 @@ const RegisterStudents: React.FC = () => {
   );
 };
 
-export default RegisterStudents;
+export default Teste;

@@ -16,6 +16,7 @@ import {
 import "./style.css";
 import React from "react";
 import { StudentService } from "../../service/StudentService";
+import { caretForwardOutline } from "ionicons/icons";
 
 const studentService = new StudentService();
 const ListStudents: React.FC = () => {
@@ -34,11 +35,17 @@ const ListStudents: React.FC = () => {
           {students.map((student, index) => (
             <IonCard color="primary" key={index}>
               <IonCardHeader>
-                <IonCardTitle className="font-title">
-                  {student.nome}
-                </IonCardTitle>
+                <IonItem
+                  color="primary"
+                  button
+                  detail={true}
+                  detailIcon={caretForwardOutline}
+                >
+                  <IonCardTitle className="font-title">
+                    {student.nome}
+                  </IonCardTitle>
+                </IonItem>
               </IonCardHeader>
-              {/*
               <IonCardContent className="font-card-content">
                 <IonItem>
                   <IonLabel>Sexo: {student.sexo}</IonLabel>
@@ -59,7 +66,6 @@ const ListStudents: React.FC = () => {
                   <IonLabel>{student.cursos.join(", ")}</IonLabel>
                 </IonItem>
               </IonCardContent>
-              */}
             </IonCard>
           ))}
         </IonContent>
