@@ -46,6 +46,7 @@ const Form = () => {
               allowEmptySelection={true}
               aria-label="Generos"
               id="gender"
+              {...register("gender")}
             >
               <div slot="label">Gêneros</div>
               <IonRadio value="masculino" justify="start">
@@ -58,25 +59,32 @@ const Form = () => {
                 Outros
               </IonRadio>
             </IonRadioGroup>
+            {errors.gender && <small>{errors.gender.message}</small>}
             <IonInput
               label="Email:"
               id="email"
+              {...register("email")}
               placeholder="Digite o seu email"
               type="email"
             ></IonInput>
+            {errors.email && <small>{errors.email.message}</small>}
             <IonInput
               label="Telefone:"
               id="phone"
+              {...register("phone")}
               placeholder="Digite o seu telefone"
               type="number"
             ></IonInput>
+            {errors.phone && <small>{errors.phone.message}</small>}
             <IonInput
               label="Endereço:"
-              id="andreess"
+              id="adreess"
+              {...register("address")}
               placeholder="Digite o seu endereço"
               type="text"
             ></IonInput>
-            <IonSelect aria-label="Cidade" id="city">
+            {errors.address && <small>{errors.address.message}</small>}
+            <IonSelect aria-label="Cidade" id="city" {...register("city")}>
               <div slot="label">Cidade</div>
               <IonSelectOption value="sãopaulo">São Paulo</IonSelectOption>
               <IonSelectOption value="goiania">Goiania</IonSelectOption>
@@ -88,7 +96,8 @@ const Form = () => {
               </IonSelectOption>
               <IonSelectOption value="anapolis">Anapolis</IonSelectOption>
             </IonSelect>
-            <IonList>
+            {errors.city && <small>{errors.city.message}</small>}
+            <IonList id="interest" {...register("interest")}>
               <div slot="label">Interesses</div>
               <IonItem>
                 <IonCheckbox value="Esporte">Esporte</IonCheckbox>
@@ -103,9 +112,17 @@ const Form = () => {
                 <IonCheckbox value="Viagens">Viagens</IonCheckbox>
               </IonItem>
             </IonList>
-            <IonToggle enableOnOffLabels={true} id="acceptNewsletters">
+            {errors.interest && <small>{errors.interest.message}</small>}
+            <IonToggle
+              enableOnOffLabels={true}
+              id="acceptNewsletters"
+              {...register("acceptNewsletters")}
+            >
               Assinatura de Newsletter
             </IonToggle>
+            {errors.acceptNewsletters && (
+              <small>{errors.acceptNewsletters.message}</small>
+            )}
             <IonButtons slot="secondary">
               <IonButton type="submit" fill="solid">
                 Cadastrar
