@@ -1,7 +1,0 @@
-{
-  "name": "cadastro-de-dados",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react-vite"
-}
