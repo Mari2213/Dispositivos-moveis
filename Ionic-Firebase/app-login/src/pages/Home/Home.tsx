@@ -6,8 +6,15 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [input, setInput] = useState<string>("");
+
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
+
   return (
     <IonPage>
       <IonHeader>

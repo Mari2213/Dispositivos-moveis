@@ -1,7 +1,7 @@
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-const config = {
+const firebaseConfig = {
   apiKey: "AIzaSyDktt0IGukSSMvsuqvbn21fP_3QdIdeXOM",
   authDomain: "app-estudos-ea84a.firebaseapp.com",
   projectId: "app-estudos-ea84a",
@@ -11,18 +11,5 @@ const config = {
   measurementId: "G-BBT74034V4",
 };
 
-firebase.initializeApp(config);
-
-export async function loginUser(username: string, password: string) {
-  const email = `${username}@codedamn.com`;
-  try {
-    const res = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-    console.log(res);
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-}
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
