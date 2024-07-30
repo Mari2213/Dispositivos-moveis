@@ -7,11 +7,12 @@ const useForms = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
   });
 
-  return { register, handleSubmit, errors };
+  return { register, handleSubmit, errors, reset };
 };
 
 export default useForms;
