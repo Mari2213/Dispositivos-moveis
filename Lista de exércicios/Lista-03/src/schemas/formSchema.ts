@@ -23,7 +23,7 @@ export const formSchema = z.object({
   city: z
     .enum(["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Outra"])
     .refine((value) => true, "City must be one of the options"),
-  hobbies: z.array(z.enum(["Sports", "Music", "Reading", "Trips"])).optional(),
+  hobbies: z.array(z.string()).optional(),
   newsletter: z.boolean().optional(),
 });
 

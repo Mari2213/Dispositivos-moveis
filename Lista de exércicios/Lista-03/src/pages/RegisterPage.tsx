@@ -22,17 +22,22 @@ import { FormSchema } from "../schemas/formSchema";
 import { useHistory } from "react-router";
 
 const RegisterPage = () => {
-  const { register, handleSubmit, errors, reset } = useForms();
+  const { register, handleSubmit, errors, reset, setValue, getValues } =
+    useForms();
   const history = useHistory();
 
   const onsubmit = (data: FormSchema) => {
-    const userData = {
-      ...data,
-    };
-    console.log(userData);
-    localStorage.setItem("userData", JSON.stringify(userData));
-    reset();
-    history.push("/");
+    try {
+      console.log(data);
+      const storedData = localStorage.getItem("userData");
+      const users = storedData ? JSON.parse(storedData) : [];
+      users.push(data);
+      localStorage.setItem("userData", JSON.stringify(users));
+      reset();
+      history.push("/home");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -117,27 +122,100 @@ const RegisterPage = () => {
           {errors.city && <p>{errors.city.message}</p>}
           <IonItem>
             <IonLabel>Hobbies</IonLabel>
-            <IonList id="hobbies" {...register("hobbies", { value: [] })}>
-              <IonCheckbox value="Sports" justify="start">
+            <IonList>
+              <IonCheckbox
+                id="sports"
+                onIonChange={(e) => {
+                  if (e.target.checked) {
+                    setValue("hobbies", [
+                      ...(getValues("hobbies") ?? []),
+                      "Sports",
+                    ]);
+                  } else {
+                    setValue(
+                      "hobbies",
+                      getValues("hobbies")?.filter(
+                        (hobby: string) => hobby !== "Sports",
+                      ),
+                    );
+                  }
+                }}
+                checked={getValues("hobbies")?.includes("Sports")}
+                justify="start"
+              >
                 Sports
               </IonCheckbox>
-              <IonCheckbox value="Music" justify="start">
+              <IonCheckbox
+                id="music"
+                onIonChange={(e) => {
+                  if (e.target.checked) {
+                    setValue("hobbies", [
+                      ...(getValues("hobbies") ?? []),
+                      "Music",
+                    ]);
+                  } else {
+                    setValue(
+                      "hobbies",
+                      getValues("hobbies")?.filter(
+                        (hobby: string) => hobby !== "Music",
+                      ),
+                    );
+                  }
+                }}
+                checked={getValues("hobbies")?.includes("Music")}
+                justify="start"
+              >
                 Music
               </IonCheckbox>
-              <IonCheckbox value="Reading" justify="start">
+              <IonCheckbox
+                id="reading"
+                onIonChange={(e) => {
+                  if (e.target.checked) {
+                    setValue("hobbies", [
+                      ...(getValues("hobbies") ?? []),
+                      "Reading",
+                    ]);
+                  } else {
+                    setValue(
+                      "hobbies",
+                      getValues("hobbies")?.filter(
+                        (hobby: string) => hobby !== "Reading",
+                      ),
+                    );
+                  }
+                }}
+                checked={getValues("hobbies")?.includes("Reading")}
+                justify="start"
+              >
                 Reading
               </IonCheckbox>
-              <IonCheckbox value="Trips" justify="start">
+              <IonCheckbox
+                id="trips"
+                onIonChange={(e) => {
+                  if (e.target.checked) {
+                    setValue("hobbies", [
+                      ...(getValues("hobbies") ?? []),
+                      "Trips",
+                    ]);
+                  } else {
+                    setValue(
+                      "hobbies",
+                      getValues("hobbies")?.filter(
+                        (hobby: string) => hobby !== "Trips",
+                      ),
+                    );
+                  }
+                }}
+                checked={getValues("hobbies")?.includes("Trips")}
+                justify="start"
+              >
                 Trips
               </IonCheckbox>
             </IonList>
+            {errors.hobbies && <p>{errors.hobbies.message}</p>}
           </IonItem>
-          {errors.hobbies && <p>{errors.hobbies.message}</p>}
           <IonItem>
-            <IonToggle
-              id="newsletter"
-              {...register("newsletter", { value: false })}
-            >
+            <IonToggle id="newsletter" {...register("newsletter")}>
               Do you want to subscribe to the Newsletter subscription?
             </IonToggle>
           </IonItem>
