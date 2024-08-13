@@ -1,0 +1,14 @@
+import * as admin from "firebase-admin";
+
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: "lista-04-dm",
+    clientEmail: "firebase-adminsdk-2gbgk@lista-04-dm.iam.gserviceaccount.com",
+    privateKey:
+      "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC2mFg+ruPYHSAb\nJ17KsHifU9bh1MHlKUTimdDJk20YRZGN6vSGHX9UAfg70Gdge7qcvWwlOF99HJi/\nDvgLQ7U50wOVqQuLHYQ37IgmEnbtSD8CEvkUxh3UOpQWMq6RyhE19vqFAgNzFghJ\nItBEvuSltNnsRzHT/VhTLiYy2eGV/cQUOh0LZ4GcjlbLX5Fy0U3rko5OEGqX0jar\nHoCJj9t8P3B6YAI2o0ryivPctGMaFns51i9bT4JjguQA0LOJXW1udLVjUUo7Usf8\nHckiwKetQ7Gw5OByV+JBCSoskARK3ngwqYdF9g/vi5AxKsfAKYnLrhAXtWIqy5/8\nFKFzzMpdAgMBAAECggEAA4Dp1I4Thh6M8qhvO7FmJxx7N4sXC1ge38A2zt9azQfs\nso3rEjW3rzt4cWFe0m2dV4uU6yPpRSPK1IOrg7/RVuIzI+iB9bHjyxTpSd251XS4\n7MfDasAga2WSWNixG9AGQ4RRK0MuIMOv9gNKfr8w8PMG6W82SAyI6NOuXPRsTS3w\nfZJQvRj0UWcahPd6JKZP1GoePMvQoWHN3Cls7ZGVfLKh5hONLzFn8IPFSFKT4ZHd\nVZPw8rAFYzshSBAs/CkWabx+Gd+BQD0M6rek95OZv5A7tueN7biPMzcCghIan7ql\n8OZejSjNdt/B/a700GGKIQdahQWXioNll0GAeDJ/KwKBgQDzlATYwiGmrgXW8072\nTMDCTfDsHaatXQBBHMx8ek76prGgmMcJVLv9XofQBA8UzlJ4Zgr9+s/lXdJppWgk\n2XgA4nGwgvBqITMSSDn4kFHylp4wSoQ72eZygMnTXlbN6cBsLkrPq5Oz2mQD8xSO\nxl+/y0440V7/jGR4n10Vk8jhOwKBgQC/6CynPj2Gk9rc3XXdLyIOrJrib4L/dFgr\ngtyiceKCHOJHCLHbhHFNZAbYgNR+nafvze+GwH34LJG8LOZB3ppJ32V7fQKx8SSq\nc4vu3DdEk/PtrPbq+kPZ3ICKZXWit5U1H1EWXO7nzac4EyR5POWtYoC1gY5bRL0/\nDEjbBs3JRwKBgGCUtn9EKpeutP4QJ6UdtejVgsv8zdQ75hfrVWGeFabpZdEqAvG+\nOXQzgWKH2XsEfErlG0KtqrVlyEK/pVXHLQAcybuVj8JlO5zqKqJWh0fLVRoM0fXx\nZqDMVDqNU5n+L6A1ktBZVg2gcLvoLKSYH+sqr+9zhVmKz2PMvNoLaUF1AoGAc4M1\nHZYBQrhMzRUglPqB7YNH13R3zXwidk5WsBEM3nS0Xz2EkTWvXX4QANHLFkufgmDb\nBKlpKbDqJ/J+xrdO95hYZXRh4unbwB285RH40nacJTwvhFEP9lsbpDJeFIucbFVl\nYaiexTisprwfADr/pNXd02MgZR+DKigi0nPN+pECgYBDNmFyHsK1o6TrGLKig/02\nySXiai5UwaHIRo8zwTufoJp6XpTPLYCGR6IWJ9dToWpWIAqMkVLJBfGVMBBZlDiv\n47u7H//7/TbZ0z7psl3c0koMc8WPKmzXPh3SjPqTWJmNTrsMuxJxzzzwsC3B1zxy\n7gmB72yiOKJWn3F9N2gmCw==\n-----END PRIVATE KEY-----\n",
+  }),
+});
+
+const db = admin.firestore();
+
+export default db;

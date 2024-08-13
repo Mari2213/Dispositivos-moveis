@@ -1,0 +1,7 @@
+{
+  "name": "Lista-04",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
