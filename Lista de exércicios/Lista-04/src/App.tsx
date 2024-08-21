@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
@@ -36,17 +36,16 @@ const App = () => (
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path={"/"}>
-          <Home />
+          <Redirect to={"/products"} />
         </Route>
-        <Route path={"/register"}>
-          <Register />
-        </Route>
-        <Route path={"/view-product/:id"}>
-          <View />
-        </Route>
-        <Route path={"/edit-product/:id"}>
-          <EditProduct />
-        </Route>
+        <Route exact path={"/products"} component={Home}></Route>
+        <Route exact path={"/product"} component={Register}></Route>
+        <Route exact path={"/view-product/:productId"} component={View}></Route>
+        <Route
+          exact
+          path={"/edit-product/:productId"}
+          component={EditProduct}
+        ></Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

@@ -23,6 +23,17 @@ export class ListProduct {
   }
 }
 
+export class GetProduct {
+  async getProduct(id: string) {
+    try {
+      const response = await api.get(`/product/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
 export class DeleteProduct {
   async deleteProduct(id: string) {
     try {

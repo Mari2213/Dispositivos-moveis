@@ -7,7 +7,7 @@ const FormsProduct = ({ onSubmit }: { onSubmit: (product: any) => void }) => {
   const [price, setPrice] = useState(0);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!name && !description && !price) {
       setError("Nome, descrição e preço do produto são obrigatórios");
@@ -24,19 +24,19 @@ const FormsProduct = ({ onSubmit }: { onSubmit: (product: any) => void }) => {
       <form onSubmit={handleSubmit} className={"ion-padding"}>
         <IonInput
           type="text"
-          label="Nome do produto:"
+          label="Nome:"
           value={name}
           onIonChange={(e) => setName(e.detail.value!)}
         ></IonInput>
         <IonInput
           type="text"
-          label="Descrição do produto:"
+          label="Descrição:"
           value={description}
           onIonChange={(e) => setDescription(e.detail.value!)}
         ></IonInput>
         <IonInput
           type="number"
-          label="Preço do produto:"
+          label="Preço:"
           value={price}
           onIonChange={(e) => setPrice(Number(e.detail.value!))}
         ></IonInput>

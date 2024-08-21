@@ -1,4 +1,6 @@
 import {
+  IonCard,
+  IonCardTitle,
   IonContent,
   IonHeader,
   IonIcon,
@@ -69,6 +71,14 @@ const Home = () => {
     });
   };
 
+  if (!productsData) {
+    return (
+      <IonCard>
+        <IonCardTitle>Loading...</IonCardTitle>
+      </IonCard>
+    );
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -77,7 +87,7 @@ const Home = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <ButtonFloating onclick={() => history.push("/register")} />
+        <ButtonFloating onclick={() => history.push("/product")} />
         <IonList className="ion-margin">
           {productsData.map((product) => (
             <IonItemSliding key={product.id}>
