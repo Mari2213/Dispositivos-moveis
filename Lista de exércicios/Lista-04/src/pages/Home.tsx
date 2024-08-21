@@ -12,53 +12,61 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useIonAlert } from "@ionic/react";
 import ButtonFloating from "../components/ButtonFloating";
 import { useHistory } from "react-router";
 import { eye, pencil, trash } from "ionicons/icons";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setProducts,
-  deleteProduct,
-  updateProduct,
-} from "../redux/productsSlice";
-import { RootState } from "../redux/store";
-import { Products } from "../models/products";
-import { api } from "../axios/axiosConfig";
+import { useEffect, useState } from "react";
+import { DeleteProduct, ListProduct } from "../services/productsServices";
+
+interface ProductProps {
+  id: string;
+  name: string;
+}
 
 const Home = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.products);
-
-  const handleButtonClick = () => {
-    history.push("/register");
-  };
+  const [productsData, setProductsData] = useState<ProductProps[]>([]);
+  const [presentAlert, dismissAlert] = useIonAlert();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const resp = await api.get("/products");
-      const productsData = resp.data;
-      dispatch(setProducts(productsData));
-    };
-    fetchProducts().then((r) => r);
-    console.log(products);
+    loadProducts().then((r) => r);
   }, []);
 
-  const viewProduct = (productId: string) => {
-    // const resp = getProducts();
-    // console.log(resp);
+  const loadProducts = async () => {
+    const listProducts = new ListProduct();
+    const result = await listProducts.listProducts();
+    setProductsData(result);
   };
 
-  const deleteProducts = async (productId: string) => {
-    try {
-      await api.delete(`/products/${productId}`);
-      dispatch(deleteProduct(productId));
-      const update = products.filter((product) => product.id !== productId);
-      dispatch(updateProduct(update));
-    } catch (error) {
-      console.error(error);
-    }
+  const viewProduct = (productId: string) => {
+    history.push(`/view-product/${productId}`);
+  };
+
+  const editProduct = async (productId: string) => {
+    history.push(`/edit-product/${productId}`);
+  };
+
+  const deleteProduct = async (productId: string) => {
+    await presentAlert({
+      header: "Confirmação de exclusão",
+      message: "Deseja realmente excluir o produto?",
+      buttons: [
+        { text: "Cancelar", role: "cancel", handler: () => dismissAlert() },
+        {
+          text: "Confirmar",
+          handler: async () => {
+            const deleteProduct = new DeleteProduct();
+            const result = await deleteProduct.deleteProduct(productId);
+            const allProducts = productsData.filter(
+              (product) => product.id !== productId,
+            );
+            setProductsData(allProducts);
+            console.log(result);
+          },
+        },
+      ],
+    });
   };
 
   return (
@@ -69,15 +77,15 @@ const Home = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <ButtonFloating onclick={handleButtonClick} />
-        <IonList>
-          {products.map((product: Products) => (
+        <ButtonFloating onclick={() => history.push("/register")} />
+        <IonList className="ion-margin">
+          {productsData.map((product) => (
             <IonItemSliding key={product.id}>
               <IonItemOptions side="start">
                 <IonItemOption
                   color="danger"
                   expandable
-                  onClick={() => deleteProducts(product.id)}
+                  onClick={() => product.id && deleteProduct(product.id)}
                 >
                   <IonIcon slot={"start"} icon={trash}></IonIcon>
                   Delete
@@ -89,14 +97,16 @@ const Home = () => {
               </IonItem>
 
               <IonItemOptions side="end">
-                <IonItemOption>
+                <IonItemOption
+                  onClick={() => product.id && editProduct(product.id)}
+                >
                   <IonIcon slot={"start"} icon={pencil}></IonIcon>
                   Edit
                 </IonItemOption>
                 <IonItemOption
                   color="light"
                   expandable
-                  onClick={() => viewProduct(product.id)}
+                  onClick={() => product.id && viewProduct(product.id)}
                 >
                   <IonIcon slot={"start"} icon={eye}></IonIcon>
                   View

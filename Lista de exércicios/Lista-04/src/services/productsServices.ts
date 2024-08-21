@@ -1,27 +1,46 @@
 import { api } from "../axios/axiosConfig";
 import { Products } from "../models/products";
 
-export const getProducts = async () => {
-  const res = await api.get("/products");
-  return res.data["products"] as Products[];
-};
+export class CreateProduct {
+  async createProduct(data: any) {
+    try {
+      const response = await api.post("/product", data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 
-export const addProduct = async (product: Products) => {
-  const res = await api.post("/products", product);
-  return res.data;
-};
+export class ListProduct {
+  async listProducts() {
+    try {
+      const response = await api.get("/products");
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 
-export const deleteProduct = async (id: string) => {
-  const res = await api.delete(`/products/${id}`);
-  return res.data;
-};
+export class DeleteProduct {
+  async deleteProduct(id: string) {
+    try {
+      const response = await api.delete(`/product/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 
-export const updateProduct = async (id: string, product: Products) => {
-  const res = await api.put(`/products/${id}`, product);
-  return res.data;
-};
-
-export const getProduct = async (id: string) => {
-  const res = await api.get(`/products/${id}`);
-  return res.data;
-};
+export class UpdateProduct {
+  async updateProduct(id: string, data: any) {
+    try {
+      const response = await api.put(`/product/${id}`, data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+}

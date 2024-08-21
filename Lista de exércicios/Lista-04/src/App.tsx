@@ -26,8 +26,8 @@ import "@ionic/react/css/palettes/dark.system.css";
 /* Theme variables */
 import "./theme/variables.css";
 import Register from "./pages/Register";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import View from "./pages/View";
+import EditProduct from "./pages/EditProduct";
 
 setupIonicReact();
 
@@ -35,14 +35,18 @@ const App = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Provider store={store}>
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-        </Provider>
+        <Route exact path={"/"}>
+          <Home />
+        </Route>
+        <Route path={"/register"}>
+          <Register />
+        </Route>
+        <Route path={"/view-product/:id"}>
+          <View />
+        </Route>
+        <Route path={"/edit-product/:id"}>
+          <EditProduct />
+        </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

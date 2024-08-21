@@ -1,43 +1,44 @@
 import { IonButton, IonContent, IonInput, IonLabel } from "@ionic/react";
-import { useState } from "react";
-import { Products } from "../models/products";
-import { v4 as uuidv4 } from "uuid";
-import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
-import { addProduct } from "../redux/productsSlice";
+import { FormEvent, useState } from "react";
 
 const FormsProduct = ({ onSubmit }: { onSubmit: (product: any) => void }) => {
-  const [product, setProduct] = useState<Products>({
-    id: uuidv4(),
-    name: "",
-  });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
   const [error, setError] = useState("");
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (!product.name) {
-      setError("Nome do produto é obrigatório");
-      return;
+    if (!name && !description && !price) {
+      setError("Nome, descrição e preço do produto são obrigatórios");
     } else {
-      // setError("Sucesso");
+      const product = { name, description, price };
       onSubmit(product);
-      dispatch(addProduct(product));
-      setProduct({ id: uuidv4(), name: "" });
-      history.push("/");
+      setName("");
+      setDescription("");
+      setPrice(0);
     }
   };
   return (
     <IonContent>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={"ion-padding"}>
         <IonInput
           type="text"
-          value={product.name}
-          onIonChange={(e) =>
-            setProduct({ ...product, name: e.detail.value || "" })
-          }
           label="Nome do produto:"
+          value={name}
+          onIonChange={(e) => setName(e.detail.value!)}
+        ></IonInput>
+        <IonInput
+          type="text"
+          label="Descrição do produto:"
+          value={description}
+          onIonChange={(e) => setDescription(e.detail.value!)}
+        ></IonInput>
+        <IonInput
+          type="number"
+          label="Preço do produto:"
+          value={price}
+          onIonChange={(e) => setPrice(Number(e.detail.value!))}
         ></IonInput>
         <IonLabel className="ion-color-danger">{error}</IonLabel>
         <IonButton

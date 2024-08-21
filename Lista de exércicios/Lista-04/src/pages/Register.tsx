@@ -7,16 +7,16 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import FormsProduct from "../components/FormsProduct";
-import { addProduct } from "../services/productsServices";
+import { CreateProduct } from "../services/productsServices";
+import { useHistory } from "react-router";
 
 const Register = () => {
+  const navigate = useHistory();
   const handlerSubmit = async (product: any) => {
-    try {
-      const resp = await addProduct(product);
-      console.log(resp);
-    } catch (error) {
-      console.error(error);
-    }
+    const addProduct = new CreateProduct();
+    const result = await addProduct.createProduct(product);
+    console.log(result);
+    navigate.push("/");
   };
 
   return (
