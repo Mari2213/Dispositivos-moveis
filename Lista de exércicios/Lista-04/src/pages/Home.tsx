@@ -41,15 +41,15 @@ const Home = () => {
     setProductsData(result);
   };
 
-  const viewProduct = (productId: string) => {
-    history.push(`/view-product/${productId}`);
+  const viewProduct = (id: string) => {
+    history.push(`/view-product/${id}`);
   };
 
-  const editProduct = async (productId: string) => {
-    history.push(`/edit-product/${productId}`);
+  const editProduct = async (id: string) => {
+    history.push(`/edit-product/${id}`);
   };
 
-  const deleteProduct = async (productId: string) => {
+  const deleteProduct = async (id: string) => {
     await presentAlert({
       header: "Confirmação de exclusão",
       message: "Deseja realmente excluir o produto?",
@@ -59,9 +59,9 @@ const Home = () => {
           text: "Confirmar",
           handler: async () => {
             const deleteProduct = new DeleteProduct();
-            const result = await deleteProduct.deleteProduct(productId);
+            const result = await deleteProduct.deleteProduct(id);
             const allProducts = productsData.filter(
-              (product) => product.id !== productId,
+              (product) => product.id !== id,
             );
             setProductsData(allProducts);
             console.log(result);

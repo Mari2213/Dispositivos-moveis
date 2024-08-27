@@ -1,24 +1,47 @@
 import { IonButton, IonContent, IonInput, IonLabel } from "@ionic/react";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
-const FormsProduct = ({ onSubmit }: { onSubmit: (product: any) => void }) => {
+interface Product {
+  name: string;
+  description: string;
+  price: number;
+}
+
+const FormsProduct = ({
+  onSubmit,
+}: {
+  onSubmit: (product: Product) => void;
+}) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(0.0);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!name && !description && !price) {
-      setError("Nome, descrição e preço do produto são obrigatórios");
-    } else {
-      const product = { name, description, price };
-      onSubmit(product);
-      setName("");
-      setDescription("");
-      setPrice(0);
+  const validateInput = (input: string) => {
+    if (!input.trim()) {
+      return "Field is required";
     }
+    return "";
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors = [
+      validateInput(name),
+      validateInput(description),
+      validateInput(price.toString()),
+    ];
+    if (errors.some((error) => error !== "")) {
+      setError("Please fill in all fields");
+      return;
+    }
+    const product: Product = { name, description, price };
+    onSubmit(product);
+    setName("");
+    setDescription("");
+    setPrice(0.0);
+  };
+
   return (
     <IonContent>
       <form onSubmit={handleSubmit} className={"ion-padding"}>
@@ -36,6 +59,7 @@ const FormsProduct = ({ onSubmit }: { onSubmit: (product: any) => void }) => {
         ></IonInput>
         <IonInput
           type="number"
+          step="0.01"
           label="Preço:"
           value={price}
           onIonChange={(e) => setPrice(Number(e.detail.value!))}

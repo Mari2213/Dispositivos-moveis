@@ -40,12 +40,8 @@ const App = () => (
         </Route>
         <Route exact path={"/products"} component={Home}></Route>
         <Route exact path={"/product"} component={Register}></Route>
-        <Route exact path={"/view-product/:productId"} component={View}></Route>
-        <Route
-          exact
-          path={"/edit-product/:productId"}
-          component={EditProduct}
-        ></Route>
+        <Route exact path={"/view-product/:id"} component={View}></Route>
+        <Route exact path={"/edit-product/:id"} component={EditProduct}></Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

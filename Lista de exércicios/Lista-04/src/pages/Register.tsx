@@ -16,7 +16,7 @@ const Register = () => {
     const addProduct = new CreateProduct();
     const result = await addProduct.createProduct(product);
     console.log(result);
-    navigate.push("/");
+    navigate.push("/products");
   };
 
   return (

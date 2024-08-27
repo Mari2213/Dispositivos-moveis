@@ -2,7 +2,7 @@ import { api } from "../axios/axiosConfig";
 import { Products } from "../models/products";
 
 export class CreateProduct {
-  async createProduct(data: any) {
+  async createProduct(data: Products) {
     try {
       const response = await api.post("/product", data);
       return response.data;
@@ -46,11 +46,15 @@ export class DeleteProduct {
 }
 
 export class UpdateProduct {
-  async updateProduct(id: string, data: any) {
+  async updateProduct(id: string, data: Products) {
     try {
+      console.log("id", id);
+      console.log("data", data);
       const response = await api.put(`/product/${id}`, data);
+      console.log("Response", response.data);
       return response.data;
     } catch (error) {
+      console.error("Error", error);
       throw error;
     }
   }
