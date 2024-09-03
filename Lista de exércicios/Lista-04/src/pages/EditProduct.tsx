@@ -14,6 +14,7 @@ import { useHistory, useParams } from "react-router";
 import { FormEvent, useEffect, useState } from "react";
 import { GetProduct, UpdateProduct } from "../services/productsServices";
 import { Products } from "../models/products";
+import React from "react";
 
 const EditProduct = () => {
   const { id } = useParams<{ id: string }>();

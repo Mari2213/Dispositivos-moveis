@@ -2,7 +2,7 @@ import { api } from "../axios/axiosConfig";
 import { Products } from "../models/products";
 
 export class CreateProduct {
-  async createProduct(data: Products) {
+  async createProduct(data: any) {
     try {
       const response = await api.post("/product", data);
       return response.data;

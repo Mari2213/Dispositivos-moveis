@@ -1,5 +1,12 @@
-import { IonButton, IonContent, IonInput, IonLabel } from "@ionic/react";
+import {
+  IonButton,
+  IonContent,
+  IonInput,
+  InputCustomEvent,
+} from "@ionic/react";
 import { useState } from "react";
+import React from "react";
+import { CreateProduct } from "../services/productsServices";
 
 interface Product {
   name: string;
@@ -7,64 +14,56 @@ interface Product {
   price: number;
 }
 
-const FormsProduct = ({
-  onSubmit,
-}: {
-  onSubmit: (product: Product) => void;
-}) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0.0);
-  const [error, setError] = useState("");
+const FormsProduct = () => {
+  const [product, setProduct] = useState<Product>({
+    name: "",
+    description: "",
+    price: 0,
+  });
 
-  const validateInput = (input: string) => {
-    if (!input.trim()) {
-      return "Field is required";
-    }
-    return "";
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const errors = [
-      validateInput(name),
-      validateInput(description),
-      validateInput(price.toString()),
-    ];
-    if (errors.some((error) => error !== "")) {
-      setError("Please fill in all fields");
-      return;
+    console.log(product);
+    try {
+      const createProduct = new CreateProduct();
+      const response = await createProduct.createProduct(product);
+      console.log(response);
+      setProduct({
+        name: "",
+        description: "",
+        price: 0,
+      });
+    } catch (e) {
+      console.error(e);
     }
-    const product: Product = { name, description, price };
-    onSubmit(product);
-    setName("");
-    setDescription("");
-    setPrice(0.0);
   };
 
+  const handleChange = (name: string) => (e: InputCustomEvent) => {
+    const value = e.detail.value;
+    setProduct({ ...product, [name]: value });
+  };
   return (
     <IonContent>
-      <form onSubmit={handleSubmit} className={"ion-padding"}>
+      <form className={"ion-padding"} onSubmit={handleSubmit}>
         <IonInput
           type="text"
           label="Nome:"
-          value={name}
-          onIonChange={(e) => setName(e.detail.value!)}
+          value={product.name}
+          onIonChange={handleChange("name")}
         ></IonInput>
         <IonInput
           type="text"
           label="Descrição:"
-          value={description}
-          onIonChange={(e) => setDescription(e.detail.value!)}
+          value={product.description}
+          onIonChange={handleChange("description")}
         ></IonInput>
         <IonInput
           type="number"
           step="0.01"
           label="Preço:"
-          value={price}
-          onIonChange={(e) => setPrice(Number(e.detail.value!))}
+          value={product.price}
+          onIonChange={handleChange("price")}
         ></IonInput>
-        <IonLabel className="ion-color-danger">{error}</IonLabel>
         <IonButton
           type={"submit"}
           color="success"

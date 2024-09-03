@@ -7,18 +7,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import FormsProduct from "../components/FormsProduct";
-import { CreateProduct } from "../services/productsServices";
-import { useHistory } from "react-router";
+import React from "react";
 
 const Register = () => {
-  const navigate = useHistory();
-  const handlerSubmit = async (product: any) => {
-    const addProduct = new CreateProduct();
-    const result = await addProduct.createProduct(product);
-    console.log(result);
-    navigate.push("/products");
-  };
-
   return (
     <IonPage>
       <IonHeader>
@@ -29,7 +20,7 @@ const Register = () => {
           <IonTitle>Page Register Products</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <FormsProduct onSubmit={handlerSubmit} />
+      <FormsProduct />
     </IonPage>
   );
 };

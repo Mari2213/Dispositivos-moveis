@@ -28,6 +28,7 @@ import "./theme/variables.css";
 import Register from "./pages/Register";
 import View from "./pages/View";
 import EditProduct from "./pages/EditProduct";
+import React from "react";
 
 setupIonicReact();
 

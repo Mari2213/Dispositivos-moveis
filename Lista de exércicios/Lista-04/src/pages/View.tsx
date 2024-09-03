@@ -13,6 +13,7 @@ import {
 import { useParams } from "react-router";
 import { GetProduct } from "../services/productsServices";
 import { useEffect, useState } from "react";
+import React from "react";
 
 interface ProductProps {
   name: string;

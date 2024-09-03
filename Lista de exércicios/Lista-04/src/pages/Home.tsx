@@ -19,6 +19,7 @@ import ButtonFloating from "../components/ButtonFloating";
 import { useHistory } from "react-router";
 import { eye, pencil, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
+import React from "react";
 import { DeleteProduct, ListProduct } from "../services/productsServices";
 
 interface ProductProps {
