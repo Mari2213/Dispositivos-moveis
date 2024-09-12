@@ -2,11 +2,12 @@ import { api } from "../axios/axiosConfig";
 import { Products } from "../models/products";
 
 export class CreateProduct {
-  async createProduct(data: any) {
+  async createProduct(data: Products) {
     try {
       const response = await api.post("/product", data);
       return response.data;
     } catch (error) {
+      console.log("Error createProduct", error);
       throw error;
     }
   }
@@ -14,12 +15,8 @@ export class CreateProduct {
 
 export class ListProduct {
   async listProducts() {
-    try {
-      const response = await api.get("/products");
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await api.get("/products");
+    return response.data;
   }
 }
 
@@ -29,6 +26,7 @@ export class GetProduct {
       const response = await api.get(`/product/${id}`);
       return response.data;
     } catch (error) {
+      console.error("Error", error);
       throw error;
     }
   }
@@ -40,6 +38,7 @@ export class DeleteProduct {
       const response = await api.delete(`/product/${id}`);
       return response.data;
     } catch (error) {
+      console.error("Error", error);
       throw error;
     }
   }

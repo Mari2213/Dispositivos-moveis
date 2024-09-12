@@ -11,35 +11,45 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useHistory, useParams } from "react-router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { GetProduct, UpdateProduct } from "../services/productsServices";
-import { Products } from "../models/products";
 import React from "react";
 
 const EditProduct = () => {
   const { id } = useParams<{ id: string }>();
-  const [products, setProducts] = useState<Products>({} as Products);
+  const nameRef = useRef<HTMLIonInputElement>(null);
+  const descriptionRef = useRef<HTMLIonInputElement>(null);
+  const priceRef = useRef<HTMLIonInputElement>(null);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
-    loadProduct().then((p) => p);
+    loadProduct().then();
   }, [id]);
 
   const loadProduct = async () => {
     const getProduct = new GetProduct();
     const result = await getProduct.getProduct(id);
-    setProducts(result);
+
+    if (nameRef.current) nameRef.current.value = result.name;
+    if (descriptionRef.current)
+      descriptionRef.current.value = result.description;
+    if (priceRef.current) priceRef.current.value = result.price.toString();
+
     setLoading(false);
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    e.stopPropagation();
-    console.log(products);
+    const updatedProduct = {
+      name: (nameRef.current?.value as string) || "",
+      description: (descriptionRef.current?.value as string) || "",
+      price: parseFloat((priceRef.current?.value as string) || "0"),
+    };
+    console.log(updatedProduct);
     try {
       const updateProduct = new UpdateProduct();
-      await updateProduct.updateProduct(id, products);
+      await updateProduct.updateProduct(id, updatedProduct);
       history.push("/products");
     } catch (error) {
       console.error("Failed", error);
@@ -63,32 +73,23 @@ const EditProduct = () => {
       <IonContent>
         <form className={"ion-padding"} onSubmit={handleSubmit}>
           <IonInput
+            ref={nameRef}
             type={"text"}
             label={"Nome:"}
             name="name"
-            value={products.name}
-            onIonChange={(e) =>
-              setProducts({ ...products, name: String(e.detail.value) })
-            }
           ></IonInput>
           <IonInput
+            ref={descriptionRef}
             type={"text"}
             label={"Descrição:"}
             name="description"
-            value={products.description}
-            onIonChange={(e) =>
-              setProducts({ ...products, description: String(e.detail.value) })
-            }
           ></IonInput>
           <IonInput
+            ref={priceRef}
             type={"number"}
             step={"0.01"}
             label={"Preço:"}
             name="price"
-            value={products.price}
-            onIonChange={(e) =>
-              setProducts({ ...products, price: Number(e.detail.value) })
-            }
           ></IonInput>
           <IonLabel className="ion-color-danger"></IonLabel>
           <IonButton

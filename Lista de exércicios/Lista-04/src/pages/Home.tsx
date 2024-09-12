@@ -16,7 +16,7 @@ import {
 } from "@ionic/react";
 import { useIonAlert } from "@ionic/react";
 import ButtonFloating from "../components/ButtonFloating";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { eye, pencil, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -31,10 +31,11 @@ const Home = () => {
   const history = useHistory();
   const [productsData, setProductsData] = useState<ProductProps[]>([]);
   const [presentAlert, dismissAlert] = useIonAlert();
+  const location = useLocation();
 
   useEffect(() => {
     loadProducts().then((r) => r);
-  }, []);
+  }, [location]);
 
   const loadProducts = async () => {
     const listProducts = new ListProduct();
