@@ -15,7 +15,7 @@ const Register = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/"></IonBackButton>
+            <IonBackButton defaultHref="/products"></IonBackButton>
           </IonButtons>
           <IonTitle>Page Register Products</IonTitle>
         </IonToolbar>
