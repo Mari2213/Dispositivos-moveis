@@ -69,17 +69,17 @@ const View = () => {
               <IonCardSubtitle>
                 Descrição: {product.description}
               </IonCardSubtitle>
-              <IonCardSubtitle>Preço: {product.price}</IonCardSubtitle>
+              <IonCardSubtitle>Preço: R$ {product.price}</IonCardSubtitle>
               <IonCardSubtitle>
                 Data de criação:{" "}
                 {product.created_at
-                  ? product.created_at.toLocaleDateString("pt-BR")
+                  ? product.created_at.toLocaleString("pt-BR")
                   : "Sem data"}
               </IonCardSubtitle>
               <IonCardSubtitle>
                 Data de atualização:{" "}
                 {product.updated_at
-                  ? product.updated_at.toLocaleDateString("pt-BR")
+                  ? product.updated_at.toLocaleString("pt-BR")
                   : ""}
               </IonCardSubtitle>
             </IonCardContent>
