@@ -41,7 +41,9 @@ import "@ionic/react/css/palettes/dark.system.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { add, library, playCircle, radio, search } from "ionicons/icons";
+import { add, homeOutline, lockClosed } from "ionicons/icons";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 setupIonicReact();
 
@@ -50,32 +52,25 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
-          </Route>
+          <Route exact path="/home" component={Home}></Route>
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
+          <Route exact path="/register" component={Register}></Route>
+          <Route exact path="/login" component={Login}></Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">
-            <IonIcon icon={playCircle} />
-            <IonLabel>Listen now</IonLabel>
+            <IonIcon icon={homeOutline} />
+            <IonLabel>Home</IonLabel>
           </IonTabButton>
-
-          <IonTabButton tab="radio" href="/radio">
-            <IonIcon icon={radio} />
-            <IonLabel>Radio</IonLabel>
-          </IonTabButton>
-
-          <IonTabButton tab="library" href="/library">
-            <IonIcon icon={library} />
-            <IonLabel>Library</IonLabel>
-          </IonTabButton>
-
-          <IonTabButton tab="search" href="/search">
+          <IonTabButton tab="register" href="/register">
             <IonIcon icon={add} />
             <IonLabel>Add</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="login" href="/login">
+            <IonIcon icon={lockClosed} />
+            <IonLabel>Login</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

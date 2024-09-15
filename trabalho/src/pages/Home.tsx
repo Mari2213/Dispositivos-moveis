@@ -6,10 +6,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 
-import { useHistory } from "react-router";
-
 const Home: React.FC = () => {
-  const history = useHistory();
   return (
     <IonPage>
       <IonHeader>
@@ -17,7 +14,7 @@ const Home: React.FC = () => {
           <IonTitle>Page Principal</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen></IonContent>
+      <IonContent></IonContent>
     </IonPage>
   );
 };
