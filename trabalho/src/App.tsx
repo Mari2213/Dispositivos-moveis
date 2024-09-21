@@ -44,6 +44,8 @@ import "./theme/variables.css";
 import { add, homeOutline, lockClosed } from "ionicons/icons";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import EditProduct from "./pages/EditProduct";
+import ViewProduct from "./pages/ViewProduct";
 
 setupIonicReact();
 
@@ -52,21 +54,19 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/home" component={Home}></Route>
+          <Route exact path="/products" component={Home}></Route>
           <Route exact path="/">
-            <Redirect to="/home" />
+            <Redirect to="/products" />
           </Route>
-          <Route exact path="/register" component={Register}></Route>
+          <Route exact path="/product" component={Register}></Route>
           <Route exact path="/login" component={Login}></Route>
+          <Route exact path="/edit-product/:id" component={EditProduct}></Route>
+          <Route exact path="/view-product/:id" component={ViewProduct}></Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
+          <IonTabButton tab="home" href="/products">
             <IonIcon icon={homeOutline} />
             <IonLabel>Home</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="register" href="/register">
-            <IonIcon icon={add} />
-            <IonLabel>Add</IonLabel>
           </IonTabButton>
           <IonTabButton tab="login" href="/login">
             <IonIcon icon={lockClosed} />
